@@ -75,17 +75,17 @@ public class playerScript : MonoBehaviour {
             switch (teclaF)
             {
                 case 'U':
-                    nextButtonScript.wasPressed = (teclaF == inputHandler.charArray[UP]);
+                    nextButtonScript.wasPressed = inputHandler.pressings[UP];
 
                     break;
                 case 'D':
-                    nextButtonScript.wasPressed = (teclaF == inputHandler.charArray[DOWN]);
+                    nextButtonScript.wasPressed = inputHandler.pressings[DOWN];
                     break;
                 case 'X':
-                    nextButtonScript.wasPressed = (teclaF == inputHandler.charArray[RIGHT]);
+                    nextButtonScript.wasPressed = inputHandler.pressings[RIGHT];
                     break;
                 case 'L':
-                    nextButtonScript.wasPressed = (teclaF == inputHandler.charArray[LEFT]);
+                    nextButtonScript.wasPressed = inputHandler.pressings[LEFT];
                     break;
             }
             if (!nextButtonScript.wasPressed) {
@@ -98,19 +98,19 @@ public class playerScript : MonoBehaviour {
     {
         if (inputHandler.aKeyPressed && secondButton != null && (isOk || isPerf))
         {
-            switch (secondButtonScript.tecla)
+            switch (teclaS)
             {
                 case 'Q':
-                    secondButtonScript.wasPressed = (teclaS == inputHandler.charArray[Q]);
+                    secondButtonScript.wasPressed =inputHandler.pressings[Q];
                     break;
                 case 'W':
-                    secondButtonScript.wasPressed = (teclaS == inputHandler.charArray[W]);
+                    secondButtonScript.wasPressed =inputHandler.pressings[W];
                     break;
                 case 'E':
-                    secondButtonScript.wasPressed = (teclaS == inputHandler.charArray[E]);
+                    secondButtonScript.wasPressed = inputHandler.pressings[E];
                     break;
                 case 'R':
-                    secondButtonScript.wasPressed = (teclaS == inputHandler.charArray[R]);
+                    secondButtonScript.wasPressed = inputHandler.pressings[R];
                     break;
             }
             if (!secondButtonScript.wasPressed)
