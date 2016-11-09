@@ -11,6 +11,7 @@ public class playerScript : MonoBehaviour {
     const int W = 5;
     const int E = 6;
     const int R = 7;
+    
 
     ScoreManager theManager;
     InputHandlerScript inputHandler;
@@ -24,6 +25,8 @@ public class playerScript : MonoBehaviour {
     ButtonScript secondButtonScript;
     public GameObject secondButton;
 
+
+    public bool hasMissed;
     public bool isOk;
     public bool isPerf;
 
@@ -42,8 +45,9 @@ public class playerScript : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        Check();
         CheckPress();
+        Check();
+
 
     }
 
@@ -58,145 +62,109 @@ public class playerScript : MonoBehaviour {
 
     }
 
-    void CheckPress()
+
+    void CheckPress() {
+        CheckPressLeft();
+        CheckPressRight();
+    }
+
+    void CheckPressLeft()
     {
-        //COMPROBACIÓN SI HA PULSADO CORRECTAMENTE EL NEXTBUTTON
-        if (inputHandler.aKeyPressed && nextButton != null && isOk || inputHandler.aKeyPressed && nextButton != null && isPerf)
+        if (inputHandler.aKeyPressed && nextButton != null && (isOk||isPerf))
         {
             switch (teclaF)
             {
-                case 'Q':
-                    if (inputHandler.pressings[Q])
-                    {
-                        nextButtonScript.wasPressed = true;
-                    }
-                    break;
-                case 'W':
-                    if (inputHandler.pressings[W])
-                    {
-                        nextButtonScript.wasPressed = true;
-                    }
-                    break;
-                case 'E':
-                    if (inputHandler.pressings[E])
-                    {
-                        nextButtonScript.wasPressed = true;
-                    }
-                    break;
-                case 'R':
-                    if (inputHandler.pressings[R])
-                    {
-                        nextButtonScript.wasPressed = true;
-                    }
-                    break;
                 case 'U':
-                    if (inputHandler.pressings[UP])
-                    {
-                        nextButtonScript.wasPressed = true;
-                    }
-                    break;
-                case 'I':
-                    if (inputHandler.pressings[DOWN])
-                    {
-                        nextButtonScript.wasPressed = true;
-                    }
-                    break;
-                case 'O':
-                    if (inputHandler.pressings[RIGHT])
-                    {
-                        nextButtonScript.wasPressed = true;
-                    }
-                    break;
-                case 'P':
-                    if (inputHandler.pressings[LEFT])
-                    {
-                        nextButtonScript.wasPressed = true;
-                    }
-                    break;
+                    nextButtonScript.wasPressed = (teclaF == inputHandler.charArray[UP]);
 
-                    if (nextButtonScript.wasPressed && !nextButtonScript.hasScored)
-                    {
-                        if (isOk)
-                        {
-                            theManager.score += 100;
-                        }
-                        else if (isPerf)
-                        {
-                            theManager.score += 1000;
-                        }
-                        nextButtonScript.hasScored = true;
-                    }
+                    break;
+                case 'D':
+                    nextButtonScript.wasPressed = (teclaF == inputHandler.charArray[DOWN]);
+                    break;
+                case 'X':
+                    nextButtonScript.wasPressed = (teclaF == inputHandler.charArray[RIGHT]);
+                    break;
+                case 'L':
+                    nextButtonScript.wasPressed = (teclaF == inputHandler.charArray[LEFT]);
+                    break;
             }
-            //COMPROBACION SI HA PULSADO CORRECTAMENTE EL SEGUNDO BOTON
-
-            if (inputHandler.aKeyPressed && secondButton != null && isOk || inputHandler.aKeyPressed && secondButton != null && isPerf)
-            {
-                switch (teclaS)
-                {
-                    case 'Q':
-                        if (inputHandler.pressings[Q])
-                        {
-                            secondButtonScript.wasPressed = true;
-                        }
-                        break;
-                    case 'W':
-                        if (inputHandler.pressings[W])
-                        {
-                            secondButtonScript.wasPressed = true;
-                        }
-                        break;
-                    case 'E':
-                        if (inputHandler.pressings[E])
-                        {
-                            secondButtonScript.wasPressed = true;
-                        }
-                        break;
-                    case 'R':
-                        if (inputHandler.pressings[R])
-                        {
-                            secondButtonScript.wasPressed = true;
-                        }
-                        break;
-                    case 'U':
-                        if (inputHandler.pressings[UP])
-                        {
-                            secondButtonScript.wasPressed = true;
-                        }
-                        break;
-                    case 'I':
-                        if (inputHandler.pressings[DOWN])
-                        {
-                            secondButtonScript.wasPressed = true;
-                        }
-                        break;
-                    case 'O':
-                        if (inputHandler.pressings[RIGHT])
-                        {
-                            secondButtonScript.wasPressed = true;
-                        }
-                        break;
-                    case 'P':
-                        if (inputHandler.pressings[LEFT])
-                        {
-                            secondButtonScript.wasPressed = true;
-                        }
-                        break;
-                }
-                if (secondButtonScript.wasPressed && secondButtonScript.hasScored == false)
-                {
-                    if (isOk)
-                    {
-                        theManager.score += 100;
-                    }
-                    else if (isPerf)
-                    {
-                        theManager.score += 1000;
-                    }
-                    secondButtonScript.hasScored = true;
-                }
-            }
+            if (!nextButtonScript.wasPressed) {
+                lives--;
+            } 
         }
     }
+
+    void CheckPressRight()
+    {
+        if (inputHandler.aKeyPressed && secondButton != null && (isOk || isPerf))
+        {
+            switch (secondButtonScript.tecla)
+            {
+                case 'Q':
+                    secondButtonScript.wasPressed = (teclaS == inputHandler.charArray[Q]);
+                    break;
+                case 'W':
+                    secondButtonScript.wasPressed = (teclaS == inputHandler.charArray[W]);
+                    break;
+                case 'E':
+                    secondButtonScript.wasPressed = (teclaS == inputHandler.charArray[E]);
+                    break;
+                case 'R':
+                    secondButtonScript.wasPressed = (teclaS == inputHandler.charArray[R]);
+                    break;
+            }
+            if (!secondButtonScript.wasPressed)
+            {
+                lives--;
+            }
+
+        }
+    }
+
+    void OntriggerEnter2D(Collider2D col)
+    {
+        GameObject unBoton;
+        ButtonScript unBotonScript;
+        char laTecla;
+        if (col.tag == "OK")
+        {
+            isOk = true;
+            unBoton = col.gameObject;
+            unBotonScript = unBoton.GetComponent<ButtonScript>();
+            laTecla = unBotonScript.tecla;
+            if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L')
+            {
+                nextButton = unBoton;
+                nextButtonScript = unBotonScript;
+            } else if (laTecla == 'Q' || laTecla == 'W' || laTecla == 'E' || laTecla == 'R')
+            {
+                secondButton = unBoton;
+                secondButtonScript = unBotonScript;
+            }
+        }
+        else if (col.tag == "Perfect")
+        {
+            isOk = false;
+            isPerf = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.tag == "OK")
+        {
+            isOk = false;
+            nextButton = null;
+            secondButton = null;
+        }
+        else if (col.tag == "Perfect")
+        {
+            isPerf = false;
+            isOk = true;
+        }
+    }
+
+    /*
     void OnTriggerEnter2D(Collider2D col) {
         if (col.tag == "OK")
         {
@@ -236,6 +204,6 @@ public class playerScript : MonoBehaviour {
             isOk = true;
         }
 
-    }
+    }*/
 }
 

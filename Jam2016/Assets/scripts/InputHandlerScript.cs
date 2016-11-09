@@ -15,7 +15,7 @@ public class InputHandlerScript : MonoBehaviour
     const int E = 6;
     const int R = 7;
 
-    
+
 
     //ACCESOS DE TECLADO
     //Camera
@@ -24,9 +24,9 @@ public class InputHandlerScript : MonoBehaviour
     KeyCode _leftKey = KeyCode.LeftArrow;
     KeyCode _rightKey = KeyCode.RightArrow;
     KeyCode _wKey = KeyCode.W;
-    KeyCode _qKey= KeyCode.Q;
-    KeyCode _eKey= KeyCode.E;
-    KeyCode _rKey= KeyCode.R;
+    KeyCode _qKey = KeyCode.Q;
+    KeyCode _eKey = KeyCode.E;
+    KeyCode _rKey = KeyCode.R;
 
     public bool aKeyPressed;
     public bool _pressingUp;
@@ -38,10 +38,19 @@ public class InputHandlerScript : MonoBehaviour
     public bool _pressingE;
     public bool _pressingR;
 
-    public bool []pressings = new bool[8];
-
+    public bool[] pressings = new bool[8];
+    public char[] charArray = new char[8];
 
     void Start() {
+        charArray[UP] = 'U';
+        charArray[DOWN] = 'D';
+        charArray[RIGHT] = 'X';
+        charArray[LEFT] = 'L';
+        charArray[Q] = 'Q';
+        charArray[W] = 'W';
+        charArray[E] = 'E';
+        charArray[R] = 'R';
+
         aKeyPressed = false;
     }
 
@@ -50,6 +59,7 @@ public class InputHandlerScript : MonoBehaviour
         this.ResetKeys();
         this.CheckInput();
         this.UpdateArray();
+        
     }
 
     private void UpdateArray() {
@@ -74,14 +84,11 @@ public class InputHandlerScript : MonoBehaviour
         this._pressingE = false;
         this._pressingR = false;
         this._pressingW = false;
-
-
-
-        //El keepSelection y el invertSelection se resetean cuando se deja de pulsar el botón
+        this.aKeyPressed = false;
     }
 
 
-    //Handles keyboard and mouse input
+    //Handles keyboard input
     void CheckInput()
     {
         #region Control
@@ -133,7 +140,6 @@ public class InputHandlerScript : MonoBehaviour
             aKeyPressed = true;
         }
 
- 
         #endregion
 
     }
