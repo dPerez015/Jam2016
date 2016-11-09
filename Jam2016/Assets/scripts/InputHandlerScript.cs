@@ -39,17 +39,10 @@ public class InputHandlerScript : MonoBehaviour
     public bool _pressingR;
 
     public bool[] pressings = new bool[8];
-    public char[] charArray = new char[8];
+
 
     void Start() {
-        charArray[UP] = 'U';
-        charArray[DOWN] = 'D';
-        charArray[RIGHT] = 'X';
-        charArray[LEFT] = 'L';
-        charArray[Q] = 'Q';
-        charArray[W] = 'W';
-        charArray[E] = 'E';
-        charArray[R] = 'R';
+
 
         aKeyPressed = false;
     }
