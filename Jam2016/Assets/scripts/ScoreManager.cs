@@ -2,9 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class ScoreManager : MonoBehaviour {
-
-    private int score;        // The player's score.
+public class ScoreManager : MonoBehaviour
+{
+    public int score;        // The player's score.
     Text text;                      // Reference to the Text component.
     void Start()
     {
