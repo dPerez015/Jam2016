@@ -35,7 +35,6 @@ public class SpawnButtons : MonoBehaviour {
                     case '^':
                         Instantiate(typesOfButtons[1], new Vector3(((songScript.allButtons[currentButton].player - 1) * 1.5f) - 0.75f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
                         currentButton++;
-
                         break;
                 }
 
