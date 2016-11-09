@@ -5,8 +5,10 @@ public class ButtonScript : MonoBehaviour {
     public char tecla;
    public bool wasPressed;
    public bool haPasado;
-    public bool hasScored;
+   public bool hasScored;
    public bool canBePressed;
+
+    
 
     playerScript eljugador;
     public GameObject jugadorObject;
@@ -19,6 +21,11 @@ public class ButtonScript : MonoBehaviour {
         haPasado = false;
         hasScored = false; 
 	}
+
+    public void initButton(Sprite s, char t){
+        GetComponent<SpriteRenderer>().sprite = s;
+        tecla = t;
+        }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,7 +34,5 @@ public class ButtonScript : MonoBehaviour {
         }
 	}
 
-    void asignarTecla(char t) {
-        tecla = t;
-    }
+    
 }

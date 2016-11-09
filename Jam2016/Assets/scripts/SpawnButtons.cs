@@ -9,7 +9,10 @@ public class SpawnButtons : MonoBehaviour {
     private float currentTime;
     private Song songScript;
     private AudioSource audioControl;
-    public GameObject[] typesOfButtons=new GameObject[2];
+    public GameObject Boton;
+    private GameObject createdBoton;
+    private ButtonScript scriptButton;
+    public Sprite[] typesOfButtons=new Sprite[8];
     public GameObject Arrastre;
     private movimiento scriptMovement;
     private float velMovement;
@@ -19,22 +22,59 @@ public class SpawnButtons : MonoBehaviour {
             if (songScript.allButtons[currentButton].time <= audioControl.time + 5) {
                 switch (songScript.allButtons[currentButton].letter) {
                     case 'Q':
-                        Instantiate(typesOfButtons[0], new Vector3(((songScript.allButtons[currentButton].player-1)*1.5f)-0.75f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        createdBoton=(GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player-1)*2.5f)- 1.25f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        scriptButton = createdBoton.GetComponent<ButtonScript>();
+                        scriptButton.initButton(typesOfButtons[0],'Q');
                         currentButton++;
-                        //print("Q");
+                        
                         break;
-                    case '<':
-                        Instantiate(typesOfButtons[1], new Vector3(((songScript.allButtons[currentButton].player - 1) * 1.5f) - 0.75f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                    case 'W':
+                        createdBoton = (GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player - 1) * 2.5f) - 1.25f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        scriptButton = createdBoton.GetComponent<ButtonScript>();
+                        scriptButton.initButton(typesOfButtons[1], 'W');
                         currentButton++;
-                        //print("W");
+
                         break;
-                    case '>':
-                        Instantiate(typesOfButtons[1], new Vector3(((songScript.allButtons[currentButton].player - 1) * 1.5f) - 0.75f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                    case 'E':
+                        createdBoton = (GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player - 1) * 2.5f) - 1.25f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        scriptButton = createdBoton.GetComponent<ButtonScript>();
+                        scriptButton.initButton(typesOfButtons[2], 'E');
                         currentButton++;
+
+                        break;
+                    case 'R':
+                        createdBoton = (GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player - 1) * 2.5f) - 1.25f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        scriptButton = createdBoton.GetComponent<ButtonScript>();
+                        scriptButton.initButton(typesOfButtons[3], 'R');
+                        currentButton++;
+
                         break;
                     case '^':
-                        Instantiate(typesOfButtons[1], new Vector3(((songScript.allButtons[currentButton].player - 1) * 1.5f) - 0.75f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        createdBoton = (GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player - 1) * 2.5f) - 1.25f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        scriptButton = createdBoton.GetComponent<ButtonScript>();
+                        scriptButton.initButton(typesOfButtons[4], 'U');
                         currentButton++;
+
+                        break;
+                    case '<':
+                        createdBoton = (GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player - 1) * 2.5f) - 1.25f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        scriptButton = createdBoton.GetComponent<ButtonScript>();
+                        scriptButton.initButton(typesOfButtons[5], 'L');
+                        currentButton++;
+                        break;
+
+                    case 'D':
+                        createdBoton = (GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player - 1) * 2.5f) - 1.25f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        scriptButton = createdBoton.GetComponent<ButtonScript>();
+                        scriptButton.initButton(typesOfButtons[6], 'D');
+                        currentButton++;
+                        break;
+                    case '>':
+                        createdBoton = (GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player - 1) * 2.5f) - 1.25f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        scriptButton = createdBoton.GetComponent<ButtonScript>();
+                        scriptButton.initButton(typesOfButtons[7], 'X');
+                        currentButton++;
+
                         break;
                 }
 
@@ -45,6 +85,7 @@ public class SpawnButtons : MonoBehaviour {
     void Start() {
         currentButton = 0;
         songScript = currentSong.GetComponent<Song>();
+
         audioControl = currentSong.GetComponent<AudioSource>();
 
         scriptMovement = Arrastre.GetComponent<movimiento>();
