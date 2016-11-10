@@ -6,6 +6,7 @@ public class ScoreManager : MonoBehaviour
 {
     public int score;        // The player's score.
     Text text;                      // Reference to the Text component.
+
     void Start()
     {
         // Set up the reference.
@@ -15,7 +16,14 @@ public class ScoreManager : MonoBehaviour
         score = 0;
     }
 
+    public void sumOk() {
+        score++;
 
+    }
+    public void sumPerf() {
+        score += 2;
+
+    }
     void Update()
     {
         // Set the displayed text to be the word "Score" followed by the score value.

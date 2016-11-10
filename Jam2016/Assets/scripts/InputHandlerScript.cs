@@ -86,13 +86,13 @@ public class InputHandlerScript : MonoBehaviour
     {
         #region Control
         if (Input.GetKeyDown(_upKey))
-        {  
+        {
             this._pressingUp = true;
             aKeyPressed = true;
         }
 
         if (Input.GetKeyDown(_downKey))
-        {
+        {   
             this._pressingDown = true;
             aKeyPressed = true;
         }

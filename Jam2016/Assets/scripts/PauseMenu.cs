@@ -7,29 +7,25 @@ public class PauseMenu : MonoBehaviour
 
     private bool isPaused;
     public GameObject pausa;
+  //  public AudioSource audioPlayer;
+    
 
-    void Start() {
-
-    }
-
-    void Update()
-    {
-
-        if (isPaused)
-        {
-
-            pausa.SetActive(true);
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            pausa.SetActive(false);
-            Time.timeScale = 1f;
-        }
-
+    void Update(){
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = !isPaused;
+            if (isPaused)
+            {
+            //   audioPlayer.Pause();
+                pausa.SetActive(true);
+                Time.timeScale = 0f;
+            }
+            else
+            {
+              //  audioPlayer.Play();
+                pausa.SetActive(false);
+                Time.timeScale = 1f;
+            }
 
         }
 
