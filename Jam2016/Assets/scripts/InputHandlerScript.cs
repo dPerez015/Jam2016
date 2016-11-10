@@ -28,7 +28,8 @@ public class InputHandlerScript : MonoBehaviour
     KeyCode _eKey = KeyCode.E;
     KeyCode _rKey = KeyCode.R;
 
-    public bool aKeyPressed;
+    public bool aKeyPressedNext;
+    public bool aKeyPressedSecond;
     public bool _pressingUp;
     public bool _pressingDown;
     public bool _pressingLeft;
@@ -44,7 +45,7 @@ public class InputHandlerScript : MonoBehaviour
     void Start() {
 
 
-        aKeyPressed = false;
+        aKeyPressedNext = aKeyPressedSecond = false;
     }
 
     void Update()
@@ -77,7 +78,7 @@ public class InputHandlerScript : MonoBehaviour
         this._pressingE = false;
         this._pressingR = false;
         this._pressingW = false;
-        this.aKeyPressed = false;
+        this.aKeyPressedNext = this.aKeyPressedSecond = false;
     }
 
 
@@ -88,49 +89,49 @@ public class InputHandlerScript : MonoBehaviour
         if (Input.GetKeyDown(_upKey))
         {
             this._pressingUp = true;
-            aKeyPressed = true;
+            aKeyPressedNext = true;
         }
 
         if (Input.GetKeyDown(_downKey))
         {   
             this._pressingDown = true;
-            aKeyPressed = true;
+            aKeyPressedNext = true;
         }
 
         if (Input.GetKeyDown(_leftKey))
         {
             this._pressingLeft = true;
-            aKeyPressed = true;
+            aKeyPressedNext = true;
         }
 
         if (Input.GetKeyDown(_rightKey))
         {
             this._pressingUp = true;
-            aKeyPressed = true;
+            aKeyPressedNext = true;
         }
 
         if (Input.GetKeyDown(_qKey))
         {
             this._pressingQ = true;
-            aKeyPressed = true;
+            aKeyPressedSecond = true;
         }
 
         if (Input.GetKeyDown(_wKey))
         {
             this._pressingW = true;
-            aKeyPressed = true;
+            aKeyPressedSecond = true;
         }
 
         if (Input.GetKeyDown(_eKey))
         {
             this._pressingE = true;
-            aKeyPressed = true;
+            aKeyPressedSecond = true;
         }
 
         if (Input.GetKeyDown(_rKey))
         {
             this._pressingR = true;
-            aKeyPressed = true;
+            aKeyPressedSecond = true;
         }
 
         #endregion

@@ -2,21 +2,26 @@
 using System.Collections;
 
 public class SongManager : MonoBehaviour {
-
-    public GameObject song;
+    /*
+    public GameObject[] song;
     private AudioSource songControl;
+    public bool isStarted;
+    private int currentSong;
 
     void Start(){
-        songControl = song.GetComponent<AudioSource>();
-        Time.timeScale = 0f;
+        currentSong = 0;
+        songControl
     }
 
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Time.timeScale = 1f;
-            songControl.Play();
-            
-        }
-	}
+    void Update(){
+
+    }
+    void loadNewSong() {
+        songControl.Stop(); ;
+        currentSong += 1;
+        songControl = song[currentSong].GetComponent<AudioSource>();
+        songControl.Play();
+        
+    }*/
+
 }
