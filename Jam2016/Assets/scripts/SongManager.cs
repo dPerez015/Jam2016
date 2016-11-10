@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SongManager : MonoBehaviour {
-    /*
+    
     public GameObject[] song;
     private AudioSource songControl;
     public bool isStarted;
@@ -10,7 +10,7 @@ public class SongManager : MonoBehaviour {
 
     void Start(){
         currentSong = 0;
-        songControl
+        songControl = song[currentSong].GetComponent<AudioSource>();
     }
 
     void Update(){
@@ -22,6 +22,6 @@ public class SongManager : MonoBehaviour {
         songControl = song[currentSong].GetComponent<AudioSource>();
         songControl.Play();
         
-    }*/
+    }
 
 }

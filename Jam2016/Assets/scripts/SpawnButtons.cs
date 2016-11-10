@@ -22,7 +22,7 @@ public class SpawnButtons : MonoBehaviour {
             if (songScript.allButtons[currentButton].time <= audioControl.time + 5) {
                 switch (songScript.allButtons[currentButton].letter) {
                     case 'Q':
-                        createdBoton=(GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player-1)*2.5f)- 1.25f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
+                        createdBoton=(GameObject)Instantiate(Boton, new Vector3(((songScript.allButtons[currentButton].player-1)*2.8f)- 1.4f, songScript.allButtons[currentButton].time * velMovement, -1.5f), Quaternion.identity, Arrastre.GetComponent<Transform>());
                         scriptButton = createdBoton.GetComponent<ButtonScript>();
                         scriptButton.initButton(typesOfButtons[0],'Q');
                         currentButton++;
