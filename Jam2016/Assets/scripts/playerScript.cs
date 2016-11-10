@@ -29,11 +29,12 @@ public class playerScript : MonoBehaviour {
     public bool isPerfL;
     public bool isOkR;
     public bool isPerfR;
-    char teclaF;
-    char teclaS;
+    public char teclaF;
+    public char teclaS;
 
     // Use this for initialization
     void Start() {
+        Time.timeScale = 0.1f;
         lives = 3;
         inputHandler = GetComponent<InputHandlerScript>();
         scoreManager = managerObject.GetComponent<ScoreManager>();
@@ -43,9 +44,9 @@ public class playerScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
-        CheckPress();
         Check();
+        CheckPress();
+
      //   print(nextButton!=null);
 
     }
@@ -55,7 +56,7 @@ public class playerScript : MonoBehaviour {
     void Check()
     {
         if (nextButton != null) {
-            print("entra");
+
             teclaF = nextButtonScript.tecla;
         }
         if (secondButton != null) {
@@ -72,7 +73,7 @@ public class playerScript : MonoBehaviour {
 
     void CheckPressLeft(){
         //es necesario el isOk||isperf? si hay algo en el collider (y portanto el boton existe) isOk siempre sera true 
-        if (inputHandler.aKeyPressed && secondButton != null && (isOkR || isPerfR))
+        if (inputHandler.aKeyPressedSecond && secondButton != null)
         {
             switch (teclaS)
             { //si hacemos un define donde igualemos cada una de las posibilidades sean los numeros concretos funcionarà?
@@ -96,10 +97,10 @@ public class playerScript : MonoBehaviour {
             else if (secondButtonScript.wasPressed) {
                 if (isOkL && !isPerfL) {
                     scoreManager.sumOk();
-
                 }
                 else if (!isOkL &&  isPerfL) {
                     scoreManager.sumPerf();
+                    
                 }
             }
 
@@ -108,52 +109,57 @@ public class playerScript : MonoBehaviour {
 
     void CheckPressRight(){
         //quita vidas cuando nextButton=null y pulsas una tecla?
-        if (inputHandler.aKeyPressed && nextButton != null && (isOkL || isPerfL))
+        if (inputHandler.aKeyPressedNext && nextButton != null)
         {
+            Debug.Log("A");
             switch (teclaF)
             {
                 //cambiar esto a una asignacion si podemos (mucho mas eficiente)
                 case 'U':
                     nextButtonScript.wasPressed = inputHandler.pressings[UP];
+                    Debug.Log("B");
 
                     break;
                 case 'D':
                     nextButtonScript.wasPressed = inputHandler.pressings[DOWN];
+                    Debug.Log("C");
                     break;
                 case 'X':
                     nextButtonScript.wasPressed = inputHandler.pressings[RIGHT];
+                    Debug.Log("D");
                     break;
                 case 'L':
                     nextButtonScript.wasPressed = inputHandler.pressings[LEFT];
+                    Debug.Log("E");
                     break;
             }
             if (!nextButtonScript.wasPressed && lives >= 0)
             {
+                Debug.Log("F");
                 lives--;
             }
-            else if (secondButtonScript.wasPressed)
+            else if (nextButtonScript.wasPressed)
             {
+                Debug.Log("G");
                 if (isOkR && !isPerfR)
                 {
+                    Debug.Log("H");
                     scoreManager.sumOk();
-
                 }
                 else if (!isOkR && isPerfR)
                 {
+                    Debug.Log("Y");
                     scoreManager.sumPerf();
                 }
             }
         }
 
 
-
-
-
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Entra");
+
         //print("entra");
         GameObject unBoton;
         ButtonScript unBotonScript;
@@ -164,7 +170,7 @@ public class playerScript : MonoBehaviour {
             unBoton = col.gameObject;
             unBotonScript = unBoton.GetComponent<ButtonScript>();
             laTecla = unBotonScript.tecla;
-            print (col.tag);
+
 
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L'){
                 nextButton = unBoton;
@@ -201,7 +207,7 @@ public class playerScript : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D col)
     {
-        Debug.Log("Sale");
+
         GameObject unBoton;
         ButtonScript unBotonScript;
         char laTecla;
@@ -210,7 +216,7 @@ public class playerScript : MonoBehaviour {
         {
             unBoton = col.gameObject;
             unBotonScript = unBoton.GetComponent<ButtonScript>();
-            print(col.tag);
+
             laTecla = unBotonScript.tecla;
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L')
             {
@@ -245,53 +251,13 @@ public class playerScript : MonoBehaviour {
             else if (laTecla == 'Q' || laTecla == 'W' || laTecla == 'E' || laTecla == 'R')
             {
 
-                isPerfR = false;
-                isOkR = true;
+                isPerfL = false;
+                isOkL = true;
             }
 
         }
     }
 
-    /*
-    void OnTriggerEnter2D(Collider2D col) {
-        if (col.tag == "OK")
-        {
-            if (nextButton != null)
-            {
-                secondButton = col.gameObject;
-                secondButtonScript = secondButton.GetComponent<ButtonScript>();
-            }
-            else {
-                nextButton = col.gameObject;
-                nextButtonScript = nextButton.GetComponent<ButtonScript>();
-            }
-
-            isOk = true;
-        }
-        else if (col.tag == "Perfect") {
-            isPerf = true;
-            isOk = false;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.tag == "OK")
-        {
-            if (secondButton != null) {
-                secondButtonScript.haPasado = true;
-            }
-            nextButtonScript.haPasado = true;
-            isOk = false;
-            nextButton = secondButton = null;
-            nextButtonScript = secondButtonScript = null;
-        }
-        else if (col.tag == "Perfect")
-        {
-            isPerf = false;
-            isOk = true;
-        }
-
-    }*/
+  
 }
 
