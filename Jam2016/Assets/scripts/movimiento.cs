@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class movimiento : MonoBehaviour {
-    private float velMovement;
+    public float velMovement;
     private Vector3 movementDir;
 
 	void Start () {
-        velMovement = 10;
+      //  velMovement = 10;
         movementDir = new Vector3(0,-1,0);
 	}
 

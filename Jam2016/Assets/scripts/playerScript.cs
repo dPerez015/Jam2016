@@ -11,9 +11,7 @@ public class playerScript : MonoBehaviour {
     const int W = 5;
     const int E = 6;
     const int R = 7;
-    
 
-    
     InputHandlerScript inputHandler;
 
     public int lives;
@@ -153,20 +151,21 @@ public class playerScript : MonoBehaviour {
 
     }
 
-    void OntriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
+        Debug.Log("Entra");
         //print("entra");
         GameObject unBoton;
         ButtonScript unBotonScript;
         char laTecla;
 
-        unBoton = col.gameObject;
-        unBotonScript = unBoton.GetComponent<ButtonScript>();
-        laTecla = unBotonScript.tecla;
-
         if (col.tag == "OK")
         {
-            print("ha entrado Ok");   
+            unBoton = col.gameObject;
+            unBotonScript = unBoton.GetComponent<ButtonScript>();
+            laTecla = unBotonScript.tecla;
+            print (col.tag);
+
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L'){
                 nextButton = unBoton;
                 nextButtonScript = unBotonScript;
@@ -181,6 +180,11 @@ public class playerScript : MonoBehaviour {
         }
         else if (col.tag == "Perfect")
         {
+            unBoton = col.gameObject;
+            unBotonScript = unBoton.GetComponentInParent(typeof(ButtonScript)) as ButtonScript;
+            laTecla = unBotonScript.tecla;
+
+
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L')
             {
                 isOkR = false;
@@ -197,17 +201,17 @@ public class playerScript : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D col)
     {
+        Debug.Log("Sale");
         GameObject unBoton;
         ButtonScript unBotonScript;
         char laTecla;
 
-        unBoton = col.gameObject;
-        unBotonScript = unBoton.GetComponent<ButtonScript>();
-        print(col.tag);
-        laTecla = unBotonScript.tecla;
-
         if (col.tag == "OK")
         {
+            unBoton = col.gameObject;
+            unBotonScript = unBoton.GetComponent<ButtonScript>();
+            print(col.tag);
+            laTecla = unBotonScript.tecla;
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L')
             {
               //  nextButton = unBoton;
@@ -226,6 +230,12 @@ public class playerScript : MonoBehaviour {
         }
         else if (col.tag == "Perfect")
         {
+
+            unBoton = col.gameObject;
+            unBotonScript = unBoton.GetComponentInParent(typeof(ButtonScript)) as ButtonScript;
+            laTecla = unBotonScript.tecla;
+
+
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L')
             {
 
