@@ -5,12 +5,14 @@ public class playerScript : MonoBehaviour {
 
     const int UP = 0;
     const int DOWN = 1;
-    const int LEFT = 2;
-    const int RIGHT = 3;
+    const int LEFT = 3;
+    const int RIGHT = 2;
     const int Q = 4;
     const int W = 5;
     const int E = 6;
     const int R = 7;
+
+    public float reguladorSpeed=1;
 
     InputHandlerScript inputHandler;
 
@@ -34,7 +36,7 @@ public class playerScript : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        Time.timeScale = 0.1f;
+
         lives = 3;
         inputHandler = GetComponent<InputHandlerScript>();
         scoreManager = managerObject.GetComponent<ScoreManager>();
@@ -44,6 +46,7 @@ public class playerScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        Time.timeScale = reguladorSpeed;
         Check();
         CheckPress();
 
@@ -95,12 +98,13 @@ public class playerScript : MonoBehaviour {
                 lives--;
             }
             else if (secondButtonScript.wasPressed) {
-                if (isOkL && !isPerfL) {
+                if (isOkL && !isPerfL&&!secondButtonScript.hasScored) {
                     scoreManager.sumOk();
+                    secondButtonScript.hasScored = true;
                 }
-                else if (!isOkL &&  isPerfL) {
+                else if (!isOkL &&  isPerfL&&!secondButtonScript.hasScored) {
                     scoreManager.sumPerf();
-                    
+                    secondButtonScript.hasScored = true;
                 }
             }
 
@@ -111,45 +115,38 @@ public class playerScript : MonoBehaviour {
         //quita vidas cuando nextButton=null y pulsas una tecla?
         if (inputHandler.aKeyPressedNext && nextButton != null)
         {
-            Debug.Log("A");
             switch (teclaF)
             {
                 //cambiar esto a una asignacion si podemos (mucho mas eficiente)
                 case 'U':
-                    nextButtonScript.wasPressed = inputHandler.pressings[UP];
-                    Debug.Log("B");
+                    nextButtonScript.wasPressed = inputHandler.pressings[UP];                    Debug.Log("B");
 
                     break;
                 case 'D':
                     nextButtonScript.wasPressed = inputHandler.pressings[DOWN];
-                    Debug.Log("C");
                     break;
                 case 'X':
                     nextButtonScript.wasPressed = inputHandler.pressings[RIGHT];
-                    Debug.Log("D");
                     break;
                 case 'L':
                     nextButtonScript.wasPressed = inputHandler.pressings[LEFT];
-                    Debug.Log("E");
                     break;
             }
             if (!nextButtonScript.wasPressed && lives >= 0)
             {
-                Debug.Log("F");
                 lives--;
             }
             else if (nextButtonScript.wasPressed)
             {
-                Debug.Log("G");
-                if (isOkR && !isPerfR)
+                if (isOkR && !isPerfR&&!nextButtonScript.hasScored)
                 {
-                    Debug.Log("H");
                     scoreManager.sumOk();
+                    nextButtonScript.hasScored = true;                    
                 }
-                else if (!isOkR && isPerfR)
+                else if (!isOkR && isPerfR && !nextButtonScript.hasScored)
                 {
-                    Debug.Log("Y");
                     scoreManager.sumPerf();
+                    nextButtonScript.hasScored = true;
                 }
             }
         }
