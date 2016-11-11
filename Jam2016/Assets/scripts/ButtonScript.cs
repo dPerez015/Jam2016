@@ -29,7 +29,9 @@ public class ButtonScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if (wasPressed) {
+            GetComponent<SpriteRenderer>().color = Color.green;
+        }
         if (haPasado && !wasPressed&&!hasTakenLife) {
             eljugador.lives--;
             eljugador.notasSeguidas = 0;

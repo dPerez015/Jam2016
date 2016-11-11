@@ -85,14 +85,12 @@ public class playerScript : MonoBehaviour {
         if (secondButton != null) {
             teclaS = secondButtonScript.tecla;
         }
-
     }
 
     void CheckMistake() {
         if ((inputHandler.aKeyPressedNext && nextButton == null )|| (inputHandler.aKeyPressedSecond && secondButton == null)) {
             lives--;
             notasSeguidas = 0;
-            Debug.Log("DON'T PRESS");
         }
     }
 
@@ -122,7 +120,6 @@ public class playerScript : MonoBehaviour {
             }
             if (!secondButtonScript.wasPressed && lives > 0)
             {
-                Debug.Log("Left Mistake"); 
                 lives--;
                 notasSeguidas = 0;
             }
@@ -166,7 +163,6 @@ public class playerScript : MonoBehaviour {
             if (!nextButtonScript.wasPressed && lives > 0)
             {
                 lives--;
-                Debug.Log("Right mistake");
             }
             else if (nextButtonScript.wasPressed)
             {
@@ -203,7 +199,6 @@ public class playerScript : MonoBehaviour {
 
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L'){
                 nextButton = unBoton;
-                Debug.Log(laTecla);
                 nextButtonScript = unBotonScript;
                 isOkR = true;
                 
@@ -251,16 +246,13 @@ public class playerScript : MonoBehaviour {
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L')
             {
                 //  nextButton = unBoton;
-                Debug.Log("exited");
                 isOkR = false;
                 nextButton = null;
-                secondButton = null;
             }
             else if (laTecla == 'Q' || laTecla == 'W' || laTecla == 'E' || laTecla == 'R')
             {
              //   nextButton = unBoton;
                 isOkL = false;
-                nextButton = null;
                 secondButton = null;
             }
             if (!unBotonScript.wasPressed) {
