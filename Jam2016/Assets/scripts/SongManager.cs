@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class SongManager : MonoBehaviour {
-    
+
+    public SongTextManager songText;
     public GameObject[] song;
     private AudioSource songControl;
     private AudioSource transitionSound;
@@ -11,6 +12,7 @@ public class SongManager : MonoBehaviour {
     bool isLoading;
 
     void Start(){
+        songText = FindObjectOfType<SongTextManager>();
         currentSong = -1;
         transitionSound = GetComponent<AudioSource>();
         loadNewSong();
@@ -25,9 +27,14 @@ public class SongManager : MonoBehaviour {
         }
 
     }
- 
+
+    void StopShowin() {
+        songText.gameObject.SetActive(false);
+    }
 
     public void loadNewSong() {
+
+
         GetComponent<SpawnButtons>().isLevelStarted = false;
         currentSong += 1;
         if (currentSong < song.Length){
@@ -53,7 +60,11 @@ public class SongManager : MonoBehaviour {
             Transition();
 
         }
+        //songText.name = AQUI IGUALAR EL NOMBRE A UNA STRING PUBLICA DE CADA CANCION
         
+        songText.gameObject.SetActive(true);
+
+        Invoke("StopShowin", 2f);
     }
 
     void Transition() {
