@@ -29,11 +29,10 @@ public class ButtonScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
-
+        
         if (haPasado && !wasPressed&&!hasTakenLife) {
             eljugador.lives--;
+            eljugador.notasSeguidas = 0;
             hasTakenLife = true;
         }
 	}

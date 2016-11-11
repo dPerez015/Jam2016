@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class playerScript : MonoBehaviour {
-
+    public bool canDie;
     const int UP = 0;
     const int DOWN = 1;
     const int LEFT = 3;
@@ -12,9 +12,10 @@ public class playerScript : MonoBehaviour {
     const int E = 6;
     const int R = 7;
 
+    public int notasSeguidas;
     public bool isAlive = true;
 
-    //public float reguladorSpeed=1;
+    public float reguladorSpeed=1;
 
     InputHandlerScript inputHandler;
 
@@ -39,7 +40,7 @@ public class playerScript : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        lives = 3;
+        lives = 5;
         inputHandler = GetComponent<InputHandlerScript>();
         scoreManager = managerObject.GetComponent<ScoreManager>();
         nextButton = null;
@@ -48,19 +49,33 @@ public class playerScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (lives < 1) {
+        
+        if (lives < 1&&canDie) {
             isAlive = false;
         }
-    //    Time.timeScale = reguladorSpeed;
+       Time.timeScale = reguladorSpeed;
         Check();
         CheckPress();
         CheckMistake();
+        CheckNotasSeguidas();
      //   print(nextButton!=null);
-
+     
     }
 
     //este no hace falta llamarlo una vez por segundo
     //solo hace falta llamarlo cuando entra o sale un boton
+
+    void CheckNotasSeguidas() {
+        if (notasSeguidas > 10) {
+            gainALife();
+            notasSeguidas = 0;
+        }
+    }
+
+    void gainALife() {
+        lives++;
+    }
+
     void Check()
     {
         if (nextButton != null) {
@@ -76,6 +91,8 @@ public class playerScript : MonoBehaviour {
     void CheckMistake() {
         if ((inputHandler.aKeyPressedNext && nextButton == null )|| (inputHandler.aKeyPressedSecond && secondButton == null)) {
             lives--;
+            notasSeguidas = 0;
+            Debug.Log("DON'T PRESS");
         }
     }
 
@@ -103,17 +120,21 @@ public class playerScript : MonoBehaviour {
                     secondButtonScript.wasPressed = inputHandler.pressings[R];
                     break;
             }
-            if (!secondButtonScript.wasPressed && lives >= 0)
+            if (!secondButtonScript.wasPressed && lives > 0)
             {
+                Debug.Log("Left Mistake"); 
                 lives--;
+                notasSeguidas = 0;
             }
             else if (secondButtonScript.wasPressed) {
                 if (isOkL && !isPerfL&&!secondButtonScript.hasScored) {
                     scoreManager.sumOk();
+                    notasSeguidas++;
                     secondButtonScript.hasScored = true;
                 }
                 else if (!isOkL &&  isPerfL&&!secondButtonScript.hasScored) {
                     scoreManager.sumPerf();
+                    notasSeguidas++;
                     secondButtonScript.hasScored = true;
                 }
             }
@@ -129,7 +150,7 @@ public class playerScript : MonoBehaviour {
             {
                 //cambiar esto a una asignacion si podemos (mucho mas eficiente)
                 case 'U':
-                    nextButtonScript.wasPressed = inputHandler.pressings[UP];                    Debug.Log("B");
+                    nextButtonScript.wasPressed = inputHandler.pressings[UP];                    
 
                     break;
                 case 'D':
@@ -142,9 +163,10 @@ public class playerScript : MonoBehaviour {
                     nextButtonScript.wasPressed = inputHandler.pressings[LEFT];
                     break;
             }
-            if (!nextButtonScript.wasPressed && lives >= 0)
+            if (!nextButtonScript.wasPressed && lives > 0)
             {
                 lives--;
+                Debug.Log("Right mistake");
             }
             else if (nextButtonScript.wasPressed)
             {
@@ -181,6 +203,7 @@ public class playerScript : MonoBehaviour {
 
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L'){
                 nextButton = unBoton;
+                Debug.Log(laTecla);
                 nextButtonScript = unBotonScript;
                 isOkR = true;
                 
@@ -227,7 +250,8 @@ public class playerScript : MonoBehaviour {
             laTecla = unBotonScript.tecla;
             if (laTecla == 'U' || laTecla == 'D' || laTecla == 'X' || laTecla == 'L')
             {
-              //  nextButton = unBoton;
+                //  nextButton = unBoton;
+                Debug.Log("exited");
                 isOkR = false;
                 nextButton = null;
                 secondButton = null;

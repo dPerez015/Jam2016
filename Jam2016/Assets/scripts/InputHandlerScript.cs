@@ -107,7 +107,7 @@ public class InputHandlerScript : MonoBehaviour
 
         if (Input.GetKeyDown(_rightKey))
         {
-            this._pressingUp = true;
+            this._pressingRight = true;
             aKeyPressedNext = true;
         }
 
