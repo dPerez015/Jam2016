@@ -10,6 +10,8 @@ public class SpawnButtons : MonoBehaviour {
     private Song songScript;
     private AudioSource audioControl;
 
+    private float timeTransition;
+
     private int currentButton;
     public GameObject Boton;
     private GameObject createdBoton;
@@ -27,6 +29,7 @@ public class SpawnButtons : MonoBehaviour {
 
             if (songScript.allButtons[currentButton].time <= audioControl.time + spawnRange) {
                 //print("tiempo de Spawn: " + songScript.allButtons[currentButton].time + "   " + spawnRange);
+                songScript.allButtons[currentButton].time += timeTransition;
                 if (!(songScript.allButtons[currentButton].time - spawnRange <= 0))
                 {
                     
@@ -170,6 +173,8 @@ public class SpawnButtons : MonoBehaviour {
         audioControl = currentSong.GetComponent<AudioSource>();
 
         scriptMovement = Arrastre.GetComponent<movimiento>();
+
+        timeTransition = GetComponent<AudioSource>().clip.length;
         
         velMovement=scriptMovement.getVel();
     }
