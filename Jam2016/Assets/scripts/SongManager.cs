@@ -11,19 +11,13 @@ public class SongManager : MonoBehaviour {
     bool isLoading;
 
     void Start(){
-        currentSong = 0;
-        loadNewSong();
+        currentSong = -1;
         transitionSound = GetComponent<AudioSource>();
+        loadNewSong();
     }
     void Update() {
-        if (songControl.isPlaying) {
-            if (!transitionSound.isPlaying)
-            {
-                GetComponent<SpawnButtons>().isLevelStarted = true;
-            }
-            else {
-                GetComponent<SpawnButtons>().isLevelStarted = false;
-            }
+        if (songControl.isPlaying) {       
+          GetComponent<SpawnButtons>().isLevelStarted = true;  
         }
 
         else {
@@ -46,16 +40,27 @@ public class SongManager : MonoBehaviour {
             // print("is loading" +songControl.isPlaying);
             Transition();
         }
-        else {
-          //  print("final");
-            //end u win
+        else
+        {
+            currentSong = 0;
+            if (nowPlaying != null) { Destroy(nowPlaying); };
+            nowPlaying = (GameObject)Instantiate(song[currentSong]);
+            songControl = nowPlaying.GetComponent<AudioSource>();
+
+            GetComponent<SpawnButtons>().currentSong = nowPlaying;
+            GetComponent<SpawnButtons>().setNewScript();
+            // print("is loading" +songControl.isPlaying);
+            Transition();
+
         }
+        
     }
 
     void Transition() {
        GetComponent<AudioSource>().Play();
        songControl.PlayDelayed(GetComponent<AudioSource>().clip.length);
-        
+     //  GetComponent<SpawnButtons>().isLevelStarted = true;
+
     }
   
 
