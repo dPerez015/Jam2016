@@ -16,6 +16,7 @@ public class SongManager : MonoBehaviour {
         currentSong = -1;
         transitionSound = GetComponent<AudioSource>();
         loadNewSong();
+        songText.gameObject.SetActive(false);
     }
     void Update() {
         if (songControl.isPlaying) {       
@@ -60,6 +61,7 @@ public class SongManager : MonoBehaviour {
             Transition();
 
         }
+
         //songText.name = AQUI IGUALAR EL NOMBRE A UNA STRING PUBLICA DE CADA CANCION
         
         songText.gameObject.SetActive(true);
