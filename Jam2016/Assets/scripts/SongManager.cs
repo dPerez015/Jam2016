@@ -6,7 +6,7 @@ public class SongManager : MonoBehaviour {
     public GameObject[] song;
     private AudioSource songControl;
     private AudioSource transitionSound;
-    GameObject nowPlaying;
+    public GameObject nowPlaying;
     private int currentSong;
     bool isLoading;
 

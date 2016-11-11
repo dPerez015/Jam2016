@@ -7,7 +7,7 @@ public class ButtonScript : MonoBehaviour {
    public bool haPasado;
    public bool hasScored;
    public bool canBePressed;
-
+   public bool hasTakenLife;
     
 
     playerScript eljugador;
@@ -32,8 +32,9 @@ public class ButtonScript : MonoBehaviour {
 
 
 
-        if (haPasado && !wasPressed) {
+        if (haPasado && !wasPressed&&!hasTakenLife) {
             eljugador.lives--;
+            hasTakenLife = true;
         }
 	}
 

@@ -62,8 +62,8 @@ public class InputHandlerScript : MonoBehaviour
         pressings[LEFT] = this._pressingLeft;
         pressings[RIGHT] = this._pressingRight;
         pressings[Q] = this._pressingQ;
-        pressings[R] = this._pressingE;
-        pressings[E] = this._pressingR;
+        pressings[R] = this._pressingR;
+        pressings[E] = this._pressingE;
         pressings[W] = this._pressingW;
     }
 

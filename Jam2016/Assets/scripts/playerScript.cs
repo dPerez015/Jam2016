@@ -12,7 +12,9 @@ public class playerScript : MonoBehaviour {
     const int E = 6;
     const int R = 7;
 
-    public float reguladorSpeed=1;
+    public bool isAlive = true;
+
+    //public float reguladorSpeed=1;
 
     InputHandlerScript inputHandler;
 
@@ -46,10 +48,13 @@ public class playerScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        Time.timeScale = reguladorSpeed;
+        if (lives < 1) {
+            isAlive = false;
+        }
+    //    Time.timeScale = reguladorSpeed;
         Check();
         CheckPress();
-
+        CheckMistake();
      //   print(nextButton!=null);
 
     }
@@ -68,6 +73,11 @@ public class playerScript : MonoBehaviour {
 
     }
 
+    void CheckMistake() {
+        if ((inputHandler.aKeyPressedNext && nextButton == null )|| (inputHandler.aKeyPressedSecond && secondButton == null)) {
+            lives--;
+        }
+    }
 
     void CheckPress() {
         CheckPressLeft();
@@ -229,7 +239,9 @@ public class playerScript : MonoBehaviour {
                 nextButton = null;
                 secondButton = null;
             }
-
+            if (!unBotonScript.wasPressed) {
+                unBotonScript.haPasado = true;
+            }
         }
         else if (col.tag == "Perfect")
         {
